@@ -1,0 +1,20 @@
+@mixin dkheight($v) {
+    height: ($v/1440) * 100;
+}
+
+@mixin dkwidth($v) {
+    width: ($v/1440) * 100;
+}
+
+@mixin dkfz($v) {
+    font-size: ($v/1440) * 100;
+}
+
+@mixin dklh($v) {
+    line-height: ($v/1440) * 100;
+}
+
+@mixin transition {
+    transition: all 0.35s cubic-bezier(0.3, 0.86, 0.36, 0.95);
+}
+

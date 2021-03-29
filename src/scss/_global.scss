@@ -1,0 +1,114 @@
+html {
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+body {
+    background-image: url(../img/geex-bg.jpg);
+    background-position: 0 0;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    width: 100%;
+    min-width: 320px;
+    overflow: hidden;
+    position: relative;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: inherit;
+    line-height: inherit;
+    font-weight: inherit;
+}
+button {
+    padding: 0;
+    border: 0;
+}
+input,
+textarea {
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+ul,
+li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+p {
+    margin: 0;
+}
+
+.star1{
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(-17.36vw);
+}
+.star2{
+    top: 50%;
+    right: 0;
+    transform: translateX(17.36vw) translateY(-50%);
+}
+.star3{
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(17.36vw);
+}
+.star4{
+    top: 50%;
+    left: 0;
+    transform: translateX(-17.36vw) translateY(-50%);
+}
+
+canvas { 
+	display: block; 
+	position: fixed;
+	z-index: -1; // put it to background
+	left: 0; // position it to fill the whole screen
+	top: 0; // position it to fill the whole screen
+}
+
+
+// .circleText{
+//     padding-top: 10vw;
+// }
+// text {
+//   fill: #FF9800;
+//   font-family: 'Montserrat';  
+//   font-weight: 900;
+//   font-size: 80px;
+//   letter-spacing: 2.5px;
+// }
+// tspan{
+//   font-size: 120px;
+// }
+
+// .circleText {
+  
+// //   position: absolute;
+  
+//   width: 300px;
+//   height: 300px;  
+//   max-height: 75vh;
+//   max-width: 75vw;
+//   overflow: visible;
+  
+//   transform-origin: center center;
+  
+//   stroke-opacity: 0.5;
+// }
