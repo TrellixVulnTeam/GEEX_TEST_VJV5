@@ -20,7 +20,7 @@
 
   <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/2621168/blotter.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Blotter/0.1.0/materials/liquidDistortMaterial.min.js"></script>
-  
+
 
 </head>
 
@@ -54,7 +54,7 @@
     <section class="hero">
       <div class="hero-wrapper">
         <div id="test" class="hero-wrapper__top">
-          <div id="heroTxt1" class="hero-wrapper__top-txt1"></div> 
+          <div id="heroTxt1" class="hero-wrapper__top-txt1"></div>
           <div id="heroTxt2" class="hero-wrapper__top-txt2"></div>
         </div>
         <div class="hero-wrapper__bottom">
@@ -82,9 +82,8 @@
               <path id="textcircle" fill="none"
                 d="M50,250c0-110.5,89.5-200,200-200s200,89.5,200,200s-89.5,200-200,200S50,360.5,50,250">
               </path>
-
               <text>
-                <textPath xlink:href="#textcircle">
+                <textPath id="textIT" xlink:href="#textcircle">
                   madness
                   madness
                 </textPath>
@@ -95,7 +94,12 @@
         </div>
         <div class="showreel-wrapper__content">
           <div class="showreel-wrapper__content-sr">
-            <img src="img/sr.png" alt="">
+            <div class="showreel-wrapper__content-sr--play">
+              <img src="img/play.png" alt="">
+            </div>
+            <div class="showreel-wrapper__content-sr--v">
+              <img src="img/sr.png" alt="">
+            </div>
             <div class="showreel-wrapper__content-sr--star star1">
               <img src="img/star.svg" alt="">
             </div>

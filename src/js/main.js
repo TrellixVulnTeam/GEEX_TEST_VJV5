@@ -27,102 +27,65 @@ gsap.to(worksSlides, {
 
 let createDigital = gsap.timeline({
     scrollTrigger: {
-        trigger: "body",
-        start: "top top",
-        scrub: true
+        trigger: ".hero-wrapper",
+        start: "top-=80 top",
+        scrub: true,
+        // pin: true,
+        // markers: true
     }
 })
 
 createDigital.to(".hero-wrapper", {
-    transform: "translateY(60vw)"
+    y: "10vw",
+    // ease: "power1.inOut"
 })
 
+
+/*------------------------------------------------------------------------------------------------------------------*/
+/*	Madness Rotation on Scroll
+--------------------------------------------------------------------------------------------------------------------*/
 
 var rotate = gsap.timeline({
     scrollTrigger: {
         trigger: ".showreel-wrapper__title",
-        // pin: true,
-        scrub: true,
         start: 'top bottom',
-        end: '+=10000',
+        scrub: true,
     }
 })
-rotate.to(".showreel-wrapper__title-container--circle", {
-    rotation: -360 * 1,
+rotate.from("#textIT", {
+    attr: { startOffset: "70%" },
+    duration: 15,
     ease: 'none'
 })
 
 
+/*------------------------------------------------------------------------------------------------------------------*/
+/*	Scroll to Showreel 
+--------------------------------------------------------------------------------------------------------------------*/
 
 function srSec() {
-    gsap.to(window, { duration: 1, scrollTo: { y: ".showreel-wrapper__content-sr", offsetY: 0 } });
+    // console.log('yeees');
+    gsap.set("body", { overflowX: "hidden", overflowY: "hidden" });
+    gsap.to(window, {
+        duration: 1,
+        scrollTo: { y: ".showreel-wrapper__content-sr", autoKill: false },
+        overwrite: true,
+        onComplete: () => gsap.set("body", { overflowX: "hidden", overflowY: "auto" })
+    });
 }
-function heroSec() {
-    gsap.to(window, { duration: 1, scrollTo: { y: ".header", offsetY: 0 } });
-}
+// function heroSec() {
+//     gsap.to(window, { duration: 1, scrollTo: { y: ".header", offsetY: 0 } });
+// }
 
-var toSec = gsap.timeline({
-    scrollTrigger: {
-        trigger: ".showreel",
-        start: 'top bottom',
-        onEnter: () => srSec(),
-        onLeaveBack: () => heroSec()
-    }
+ScrollTrigger.create({
+    trigger: ".showreel-wrapper__content-sr",
+    start: 'top bottom-=100',
+    onEnter: () => srSec(),
 })
 
-
-
-
-// var text = new window.Blotter.Text("Bro", {
-//     family: 'Montserrat',
-//     size: 300,
-//     fill: "#000",
-//     paddingLeft: 80,
-//     paddingRight: 80,
-//     paddingTop: 80,
-//     paddingBottom: 80,
-// })
-
-// var material = new window.Blotter.LiquidDistortMaterial();
-
-
-// var blotter = new window.Blotter(material, {
-//     texts: text
-// })
-
-// var scope = blotter.forText(text);
-
-// scope.appendTo(document.body);
-// var scene = new THREE.Scene();
-// var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-
-// var renderer = new THREE.WebGLRenderer();
-// renderer.setSize(window.innerWidth, window.innerHeight);
-// document.body.appendChild(renderer.domElement);
-
-// var geometry = new THREE.BoxGeometry(1, 1, 1);
-// var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-// var cube = new THREE.Mesh(geometry, material);
-// scene.add(cube);
-
-// camera.position.z = 5;
-
-// var animate = function () {
-//     requestAnimationFrame(animate);
-
-//     cube.rotation.x += 0.01;
-//     cube.rotation.y += 0.01;
-
-//     renderer.render(scene, camera);
-// };
-
-// animate();
-
-// let TEXTURE = new TextureLoader().load('supaAmazingImage.jpg');
-// let mesh = new Mesh(
-//     new PlaneBufferGeometry(),
-//     new MeshBasicMaterial({ map: TEXTURE })
-// )
+/*------------------------------------------------------------------------------------------------------------------*/
+/*	Blotter text animation
+--------------------------------------------------------------------------------------------------------------------*/
 
 let fontSize = $(window).width() * 0.2
 
@@ -133,21 +96,25 @@ let fontSize = $(window).width() * 0.2
 //     return fontSize
 // })
 
-var text1 = new Blotter.Text("Create", {
-    family: 'LuciferSansRegular',
+var text1 = new Blotter.Text("CREATE", {
+    family: 'Lucifer Sans SemiExp Light',
     size: fontSize,
+    leading: 1.3,
+    weight: 300,
     fill: "#FFDA13"
 })
-var text2 = new Blotter.Text("Digital", {
-    family: 'LuciferSansRegular',
+var text2 = new Blotter.Text("DIGITAL", {
+    family: 'Lucifer Sans SemiExp Light',
     size: fontSize,
+    leading: 1.3,
+    weight: 300,
     fill: "#FFDA13"
 })
 
 var material = new Blotter.LiquidDistortMaterial();
-material.uniforms.uVolatility.value = 0.05;
-material.uniforms.uSeed.value = 0;
-material.uniforms.uSpeed.value = 0.4;
+material.uniforms.uVolatility.value = 0.03;
+material.uniforms.uSeed.value = 0.1;
+material.uniforms.uSpeed.value = 0.3;
 
 
 var blotter = new Blotter(material, {
@@ -158,8 +125,10 @@ let heroTxt1 = document.getElementById('heroTxt1')
 let heroTxt2 = document.getElementById('heroTxt2')
 
 var scope = blotter.forText(text1);
+var scope2 = blotter.forText(text2);
 
 scope.appendTo(heroTxt1);
+scope2.appendTo(heroTxt2);
 
 // document.onmousemove = moveIt;
 // function moveIt(event) {
@@ -168,3 +137,56 @@ scope.appendTo(heroTxt1);
 //     material.uniforms.uOffset.value = (event.clientX * .0001);
 
 // }
+
+
+
+
+
+const image = document.getElementsByClassName('showreel-wrapper__content-sr--play')
+// const cursor = document.getElementById("cursor");
+
+$('.showreel-wrapper__content-sr').on('mouseenter', function (e) {
+    // gsap.to(cursor, 0.1, { autoAlpha: 0 })
+    gsap.to(image, 0.1, { autoAlpha: 1 })
+
+    // console.log('here');
+
+    var clientX = e.pageX - $(this).offset().left;
+    var clientY = e.pageY - $(this).offset().top;
+
+
+    console.log(clientX, clientY);
+
+    const render = () => {
+        gsap.set(image, {
+            left: clientX,
+            top: clientY
+        });
+        // requestAnimationFrame(render);
+    };
+    render();
+})
+
+$('.showreel-wrapper__content-sr').on('mouseleave', function (e) {
+    // gsap.to(cursor, 0.1, { autoAlpha: 1 })
+    gsap.to(image, 0.1, { autoAlpha: 0 })
+    console.log('out');
+
+})
+
+$('.showreel-wrapper__content-sr').on('mousemove', function (e) {
+    // var clientX = e.pageX;
+    // var clientY = e.pageY;
+
+    var clientX = e.pageX - $(this).offset().left;
+    var clientY = e.pageY - $(this).offset().top;
+
+    const render = () => {
+        gsap.set(image, {
+            left: clientX,
+            top: clientY,
+        });
+        // requestAnimationFrame(render);
+    };
+    render();
+})

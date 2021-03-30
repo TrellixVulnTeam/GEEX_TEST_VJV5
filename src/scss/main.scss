@@ -47,20 +47,18 @@
 	&-wrapper {
 		color: $main;
 		&__top {
-			@include dkfz(291vw);
-			@include dklh(260vw);
-			text-transform: uppercase;
-			font-family: "LuciferSansSemiExpRegular", Fallback, sans-serif;
-			
+			// @include dkfz(291vw);
+			// @include dklh(260vw);
+			height: 53vw;
 			&-txt1 {
 				transform: rotate(-6deg);
-				margin-top: 1vw;
+				margin-left: 2vw;
 			}
 			&-txt2 {
 				width: max-content;
 				transform: rotate(10deg);
 				margin-left: auto;
-				margin-top: 7vw;
+				// margin-top: 7vw;
 			}
 		}
 		&__bottom {
@@ -137,10 +135,15 @@
 			justify-content: center;
 			& text {
 				fill: $main;
-				font-size: 67px;
-				line-height: 67px;
+				font-size: 65px;
+				line-height: 65px;
 				text-transform: uppercase;
-				font-family: "LuciferSansSemiExpRegular", Fallback, sans-serif;
+				font-family: "LuciferSansSemiExpLight", Fallback, sans-serif;
+			}
+			&-container {
+				&--circle {
+					transform: rotate(-160deg);
+				}
 			}
 		}
 		&__content {
@@ -152,9 +155,17 @@
 				@include dkwidth(943vw);
 				@include dkheight(943vw);
 				margin: 0 auto;
-				& img {
-					width: 100%;
-					height: 100%;
+				&--v {
+					& img {
+						width: 100%;
+						height: 100%;
+					}
+				}
+				&--play {
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					transform: translate(-50%, -50%);
 				}
 				&--star {
 					position: absolute;
@@ -174,7 +185,7 @@
 				&--title {
 					@include dkfz(291vw);
 					@include dklh(260vw);
-					font-family: "LuciferSansSemiExpRegular", Fallback, sans-serif;
+					font-family: "LuciferSansSemiExpLight", Fallback, sans-serif;
 					&_txt1 {
 						transform: rotate(17deg);
 					}
@@ -206,26 +217,26 @@
 		&__slide {
 			height: 100%;
 			display: flex;
-			&-1{
+			&-1 {
 				@include dkwidth(2222vw);
 				background-color: $secColor1;
 			}
-			&-2{
+			&-2 {
 				@include dkwidth(1200vw);
 				background-color: $secColor1;
-				& img{
+				& img {
 					width: 100%;
 					height: 100%;
 				}
 			}
-			&-3{
+			&-3 {
 				@include dkwidth(2222vw);
 				background-color: $secColor1;
 			}
-			&-4{
+			&-4 {
 				@include dkwidth(1200vw);
 				background-color: $secColor1;
-				& img{
+				& img {
 					width: 100%;
 					height: 100%;
 				}

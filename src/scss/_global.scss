@@ -15,7 +15,7 @@ body {
     background-repeat: no-repeat;
     width: 100%;
     min-width: 320px;
-    overflow: hidden;
+    overflow-x: hidden;
     position: relative;
 }
 
@@ -75,40 +75,3 @@ p {
     transform: translateX(-17.36vw) translateY(-50%);
 }
 
-canvas { 
-	display: block; 
-	position: fixed;
-	z-index: -1; // put it to background
-	left: 0; // position it to fill the whole screen
-	top: 0; // position it to fill the whole screen
-}
-
-
-// .circleText{
-//     padding-top: 10vw;
-// }
-// text {
-//   fill: #FF9800;
-//   font-family: 'Montserrat';  
-//   font-weight: 900;
-//   font-size: 80px;
-//   letter-spacing: 2.5px;
-// }
-// tspan{
-//   font-size: 120px;
-// }
-
-// .circleText {
-  
-// //   position: absolute;
-  
-//   width: 300px;
-//   height: 300px;  
-//   max-height: 75vh;
-//   max-width: 75vw;
-//   overflow: visible;
-  
-//   transform-origin: center center;
-  
-//   stroke-opacity: 0.5;
-// }
