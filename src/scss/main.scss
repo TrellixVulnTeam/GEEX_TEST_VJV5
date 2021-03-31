@@ -69,15 +69,18 @@
 		&__bottom {
 			display: flex;
 			justify-content: space-between;
-			width: 82%;
-			margin: 0 auto;
-			margin-top: 4.15vw;
+			// width: 82%;
+			// margin: 0 auto;
+			// margin-top: 4.15vw;
 			font-family: "LuciferSansRegular", Fallback, sans-serif;
 			text-transform: uppercase;
+			position: relative;
 			&-cont{
 				// position: relative;
-				@include dkwidth(500vw);
-				@include dkheight(250vw);
+				// @include dkwidth(500vw);
+				position: relative;
+				@include dkheight(400vw);
+				width: 50%;
 				display: flex;
 				justify-content: center;
 				align-items: center;

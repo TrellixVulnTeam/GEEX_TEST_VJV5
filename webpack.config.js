@@ -24,7 +24,7 @@ const plugins = () => {
     }),
     new CopyWebpackPlugin({
       patterns: [
-        { from: path.resolve(__dirname, 'src/assets'), to: path.resolve(__dirname, 'app') }
+        { from: path.resolve(__dirname, 'src/assets'), to: path.resolve(__dirname, 'docs') }
       ]
     }),
   ];
@@ -36,16 +36,17 @@ module.exports = {
   context: path.resolve(__dirname, 'src'),
   mode: 'development',
   entry: {
-    main:'./js/main.js'
+    main:'./js/main.js',
+    three: './js/threeAnim.js'
   },
   output: {
     filename: `./js/${filename('js')}`,
-    path: path.resolve(__dirname, 'app'),
+    path: path.resolve(__dirname, 'docs'),
     publicPath: ''
   },
   devServer: {
     historyApiFallback: true,
-    contentBase: path.resolve(__dirname, 'app'),
+    contentBase: path.resolve(__dirname, 'docs'),
     open: true,
     compress: true,
     hot: true,
@@ -98,7 +99,7 @@ module.exports = {
         use: [{
           loader: 'file-loader',
           options: {
-            name: `./img/${filename('[ext]')}`
+            name: `./img/[name].[ext]`
           }
         }],
       },

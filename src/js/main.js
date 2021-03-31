@@ -7,11 +7,157 @@ import imagesLoaded from "imagesLoaded";
 
 import '../scss/main.scss';
 import '../index.html';
-import './threeAnim.js'
+// import './threeAnim.js'
 
 gsap.registerPlugin(ScrollTrigger)
 gsap.registerPlugin(ScrollToPlugin);
 
+
+// magic functions that are used to calculate style values
+const MathUtils = {
+    // map number x from range [a, b] to [c, d]
+    map: (x, a, b, c, d) => ((x - a) * (d - c)) / (b - a) + c,
+    // linear interpolation
+    lerp: (a, b, n) => (1 - n) * a + n * b
+};
+
+// body element
+const body = document.body;
+
+// calculate the viewport size
+let winsize;
+const calcWinsize = () => {
+    winsize = {
+        width: window.innerWidth,
+        height: window.innerHeight
+    }
+}
+calcWinsize();
+// and recalculate on resize
+window.addEventListener("resize", calcWinsize);
+
+// Really important for window to go back to top
+// Otherwise the will be a "jump on reload"
+window.onbeforeunload = function () {
+    window.scrollTo(0, 0);
+};
+
+// getting scroll top position 
+let topScroll;
+const getTopScroll = () => {
+    topScroll = window.pageYOffset || document.documentElement.scrollTop;
+}
+
+// updating scroll top position on scroll
+window.addEventListener("scroll", getTopScroll);
+
+// SmoothScroll
+class SmoothScroll {
+    constructor() {
+        // this.shouldAnimate = false;
+
+        // get main 
+        this.DOM = {
+            main: document.querySelector("main")
+        };
+
+        // get scrollable div (the one which is being translated)
+        this.DOM.scrollable = this.DOM.main.querySelector("div[data-scroll]");
+
+        // this.listenMouse()
+
+        // specifying properties that will change on scroll (y-axis)
+        // interpolation between the previous and current value to achieve the smooth scrolling effect
+        this.scrlStyles = {
+            translationY: {
+                // interpolated value
+                previous: 0,
+                // current value
+                current: 0,
+                // amount of easing
+                ease: 0.1,
+                // current value setter
+                // in this case the value of the translation will be the same like the document scroll
+                setValue: () => topScroll
+            }
+        };
+        // set the body's height
+        this.bodySize();
+        // set the initial style values
+        this.update();
+        // modyfy style of the <main> element
+        this.mainStyles();
+        // on resize reset body height
+        this.bodyResize();
+        // render loop
+        requestAnimationFrame(() => this.render());
+    }
+
+    // listenMouse() {
+    //     document.addEventListener('mousemove', () => {
+    //         this.shouldAnimate = true;
+    //     })
+    // }
+
+
+    update() {
+        // sets the initial value (no interpolation) - translate the scroll value
+        for (const key in this.scrlStyles) {
+            this.scrlStyles[key].current = this.scrlStyles[
+                key
+            ].previous = this.scrlStyles[key].setValue();
+        }
+        // translate the scrollable div
+        this.setPosition();
+        // this.shouldAnimate = true;
+    }
+
+    setPosition() {
+        // if current scroll value is different from previous -- translate 
+        if (
+            Math.round(this.scrlStyles.translationY.previous) !==
+            Math.round(this.scrlStyles.translationY.current) ||
+            this.scrlStyles.translationY.previous < 10
+        ) {
+            // this.shouldAnimate = true;
+            this.DOM.scrollable.style.transform = `translate3d(0,${-1 * this.scrlStyles.translationY.previous}px,0)`;
+        }
+    }
+
+    bodySize() {
+        // setting the body height (this will keep the scrollbar on the page)
+        body.style.height = `${this.DOM.scrollable.scrollHeight}px`;
+    }
+
+    mainStyles() {
+        // <main> has to be "sticked" to the screen and not scroll (setting it to position fixed and overflow hidden)
+        this.DOM.main.style.position = "fixed";
+        this.DOM.main.style.width = this.DOM.main.style.height = "100%";
+        this.DOM.main.style.top = this.DOM.main.style.left = 0;
+        this.DOM.main.style.overflow = "hidden";
+    }
+
+    bodyResize() {
+        window.addEventListener("resize", () => this.bodySize());
+    }
+
+    render() {
+        // update current and interpolated values
+        for (const key in this.scrlStyles) {
+            this.scrlStyles[key].current = this.scrlStyles[key].setValue();
+            this.scrlStyles[key].previous = MathUtils.lerp(
+                this.scrlStyles[key].previous,
+                this.scrlStyles[key].current,
+                this.scrlStyles[key].ease
+            );
+        }
+        // then translate scrollable div
+        this.setPosition();
+
+        // render loop
+        requestAnimationFrame(() => this.render());
+    }
+}
 
 /*------------------------------------------------------------------------------------------------------------------*/
 /*	Preload
@@ -37,6 +183,9 @@ Promise.all(preloadEverything).then(() => {
     // Remove the loader
     document.body.classList.remove("loading");
     document.body.classList.add("loaded");
+
+    getTopScroll();
+    new SmoothScroll();
 });
 
 
@@ -55,20 +204,20 @@ gsap.to(worksSlides, {
     }
 })
 
-let createDigital = gsap.timeline({
-    scrollTrigger: {
-        trigger: ".hero-wrapper",
-        start: "top-=80 top",
-        scrub: true,
-        // pin: true,
-        // markers: true
-    }
-})
+// let createDigital = gsap.timeline({
+//     scrollTrigger: {
+//         trigger: ".hero-wrapper",
+//         start: "top-=80 top",
+//         scrub: true,
+//         // pin: true,
+//         // markers: true
+//     }
+// })
 
-createDigital.to(".hero-wrapper", {
-    y: "10vw",
-    // ease: "power1.inOut"
-})
+// createDigital.to(".hero-wrapper", {
+//     y: "10vw",
+//     // ease: "power1.inOut"
+// })
 
 
 /*------------------------------------------------------------------------------------------------------------------*/
@@ -247,38 +396,48 @@ $('.showreel-wrapper__content-sr--v_play').on('click', function () {
 
 
 
-var mArea = document.querySelector('.hero-wrapper__bottom-cont');
+let heroBtns = document.querySelectorAll('.hero-wrapper__bottom-cont')
 
-// 1. Set the function and variables
-function parallaxIt(e, target, movement = 0.2) {
-    var boundingRect = mArea.getBoundingClientRect();
-    var relX = e.pageX - boundingRect.left;
-    var relY = e.pageY - boundingRect.top;
-    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+heroBtns.forEach((heroBtn) => {
 
-    gsap.to(target, {
-        x: (relX - boundingRect.width / 2) * movement,
-        y: (relY - boundingRect.height / 2 - scrollTop) * movement,
-        ease: "power1",
-        duration: 0.6
+    // 1. Set the function and variables
+    function parallaxIt(e, target, movement = 0.2) {
+        var boundingRect = heroBtn.getBoundingClientRect();
+        var relX = e.pageX - boundingRect.left;
+        var relY = e.pageY - boundingRect.top;
+        var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+        gsap.to(target, {
+            x: (relX - boundingRect.width / 2) * movement,
+            y: (relY - boundingRect.height / 2 - scrollTop) * movement,
+            ease: "power1",
+            duration: 0.6
+        });
+    }
+
+    function callParallax(e) {
+        parallaxIt(e, $(heroBtn).find('.hero-wrapper__bottom-a'));
+    }
+    heroBtn.addEventListener('mousemove', function (e) {
+        callParallax(e);
+        console.log('moving');
     });
-}
 
-// 2. Call the function
-function callParallax(e) {
-    parallaxIt(e, '.hero-wrapper__bottom-a');
-}
-
-mArea.addEventListener('mousemove', function (e) {
-    callParallax(e);
-});
-
-mArea.addEventListener('mouseleave', function (e) {
-    gsap.to('.hero-wrapper__bottom-a', {
-        scale: 1,
-        x: 0,
-        y: 0,
-        ease: "power3",
-        duration: 0.6
+    heroBtn.addEventListener('mouseleave', function (e) {
+        gsap.to($(heroBtn).find('.hero-wrapper__bottom-a'), {
+            scale: 1,
+            x: 0,
+            y: 0,
+            ease: "power3",
+            duration: 0.6
+        });
     });
-});
+    
+})
+
+
+
+
+
+
+

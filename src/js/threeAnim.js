@@ -12,23 +12,40 @@ var camera, scene, renderer, composer, renderPass, customPass;
 var geometry, material, mesh, texture, uMouse = new THREE.Vector2(0, 0);
 
 var img = document.getElementById('texture');
+img.style.opacity = 0;
+
+
+texture = new THREE.TextureLoader().load(img.src);
+console.log(img.src);
+
 
 // Creating dummy element
-let dummyimg = document.createElement("img");
+// let dummyimg = document.getElementById("dummyimg");
+// let dummyimg = document.createElement("img");
 // After dummy element is loaded
-dummyimg.onload = function () {
 
-    img.style.opacity = 0;
+init()
+animate();
 
-    // Setting a texture
-    texture = new THREE.Texture(this);
-    texture.needsUpdate = true;
 
-    init()
-    animate();
-}
+// dummyimg.onload = function () {
+
+//     img.style.opacity = 0;
+
+//     // Setting a texture
+//     texture = new THREE.Texture(this);
+
+//     console.log(this, img);
+//     texture.needsUpdate = true;
+
+//     init()
+//     animate();
+// }
 // Source of a dummy image is now same as html image
-dummyimg.src = img.src;
+// dummyimg.src = img.src;
+// dummyimg.src = './img/geex-bg.jpg'
+// console.log(dummyimg, img);
+
 
 function init() {
 
