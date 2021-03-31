@@ -5,6 +5,8 @@
 @import "global";
 
 .header {
+	position: relative;
+	z-index: 10;
 	padding: 0 1.4vw;
 	padding-top: 0.7vw;
 	&-wrapper {
@@ -47,18 +49,21 @@
 	&-wrapper {
 		color: $main;
 		&__top {
-			// @include dkfz(291vw);
-			// @include dklh(260vw);
-			height: 53vw;
+			@include dkfz(291vw);
+			@include dklh(260vw);
+			font-family: "LuciferSansSemiExpLight", Fallback, sans-serif;
+			text-transform: uppercase;
+			// height: 53vw;
+			margin-bottom: 10vw;
 			&-txt1 {
 				transform: rotate(-6deg);
-				margin-left: 2vw;
+				// margin-left: 2vw;
 			}
 			&-txt2 {
 				width: max-content;
 				transform: rotate(10deg);
 				margin-left: auto;
-				// margin-top: 7vw;
+				margin-top: 7vw;
 			}
 		}
 		&__bottom {
@@ -69,7 +74,16 @@
 			margin-top: 4.15vw;
 			font-family: "LuciferSansRegular", Fallback, sans-serif;
 			text-transform: uppercase;
+			&-cont{
+				// position: relative;
+				@include dkwidth(500vw);
+				@include dkheight(250vw);
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
 			&-a {
+				position: relative;
 				display: block;
 				@include dkwidth(277vw);
 				@include dkheight(180vw);
@@ -106,7 +120,7 @@
 		position: relative;
 		&__circleT {
 			position: absolute;
-			z-index: -1;
+			z-index: 0;
 			top: 0vw;
 			left: 50%;
 			transform: translateX(-50%);
@@ -152,21 +166,60 @@
 			padding-top: 17.5vw;
 			&-sr {
 				position: relative;
-				@include dkwidth(943vw);
-				@include dkheight(943vw);
-				margin: 0 auto;
 				&--v {
-					& img {
-						width: 100%;
-						height: 100%;
+					position: relative;
+					@include dkwidth(943vw);
+					@include dkheight(943vw);
+					margin: 0 auto;
+					border-radius: 50%;
+					overflow: hidden;
+					background-color: transparent;
+					cursor: none;
+					&_content {
+						position: absolute;
+						z-index: -1;
+						@include dkwidth(1100vw);
+						@include dkheight(1100vw);
+						top: 0;
+						left: 0;
+						background-image: url(../img/sr.png);
+						background-size: cover;
+						background-repeat: no-repeat;
+						background-position: center center;
+						background-color: #000;
+					}
+					&_play {
+						position: absolute;
+						top: 50%;
+						left: 50%;
+						transform: translate(-50%, -50%);
+						&-txt {
+							font-family: "LuciferSansMedium", Fallback, sans-serif;
+							@include dkfz(18vw);
+							@include dklh(21vw);
+							position: absolute;
+							top: 50%;
+							left: 50%;
+							transform: translate(-50%, -50%);
+							& span {
+								// position: relative;
+								transform: translateY(0);
+							}
+						}
+					}
+					&_video {
+						position: absolute;
+						z-index: -2;
+
+						top: 50%;
+						left: 50%;
+						transform: translate(-50%, -50%);
+						@include dkwidth(1300vw);
+						height: auto;
+						// @include dkheight(943vw);
 					}
 				}
-				&--play {
-					position: absolute;
-					top: 50%;
-					left: 50%;
-					transform: translate(-50%, -50%);
-				}
+
 				&--star {
 					position: absolute;
 					@include dkwidth(250vw);

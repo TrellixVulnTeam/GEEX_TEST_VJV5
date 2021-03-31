@@ -110,6 +110,19 @@ module.exports = {
             name: `./fonts/${filename('[ext]')}`
           }
         }],
+      },
+      {
+        test: /\.mp4$/,
+        use: 'file-loader?name=img/[name].[ext]',
+      },
+      {
+        test: /\.(frag|vert|glsl)$/,
+        use: [
+          {
+            loader: 'glsl-shader-loader',
+            options: {}
+          }
+        ]
       }
     ]
   }

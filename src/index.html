@@ -18,13 +18,23 @@
   <meta name="author" content="Dmytro Anikin">
   <title>Geex Arts is Awesome</title>
 
-  <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/2621168/blotter.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Blotter/0.1.0/materials/liquidDistortMaterial.min.js"></script>
-
+  <!-- Detect modern browser -->
+  <script>
+    document.documentElement.className = "js";
+    var supportsCssVars = function () { var e, t = document.createElement("style"); return t.innerHTML = "root: { --tmp-var: bold; }", document.head.appendChild(t), e = !!(window.CSS && window.CSS.supports && window.CSS.supports("font-weight", "var(--tmp-var)")), t.parentNode.removeChild(t), e };
+    supportsCssVars() || alert("Please view this in a modern browser that supports CSS Variables.");
+  </script>
+  <!-- <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/2621168/blotter.min.js"></script> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Blotter/0.1.0/materials/liquidDistortMaterial.min.js"></script> -->
 
 </head>
 
-<body>
+<body class="loading">
+
+  <div class="bg" id="here">
+    <img src="img/geex-bg.jpg" alt="Some image" id="texture">
+  </div>
+
   <header class="header">
     <div class="header-wrapper">
       <a href="/" class="header-wrapper__logo">
@@ -54,20 +64,26 @@
     <section class="hero">
       <div class="hero-wrapper">
         <div id="test" class="hero-wrapper__top">
-          <div id="heroTxt1" class="hero-wrapper__top-txt1"></div>
-          <div id="heroTxt2" class="hero-wrapper__top-txt2"></div>
+          <div id="heroTxt1" class="hero-wrapper__top-txt1">Create</div>
+          <div id="heroTxt2" class="hero-wrapper__top-txt2">Digital</div>
         </div>
         <div class="hero-wrapper__bottom">
-          <a href="#" class="hero-wrapper__bottom-a">
-            <div class="hero-wrapper__bottom-a--top">Geex World</div>
-            <div class="hero-wrapper__bottom-a--middle">Dive into the new world</div>
-            <div class="hero-wrapper__bottom-a--bottom">Top Line</div>
-          </a>
-          <a href="#" class="hero-wrapper__bottom-a">
-            <div class="hero-wrapper__bottom-a--top">New way</div>
-            <div class="hero-wrapper__bottom-a--middle">See All projects in Geex tv</div>
-            <div class="hero-wrapper__bottom-a--bottom">Look best</div>
-          </a>
+          <div class="hero-wrapper__bottom-cont">
+            <a href="#" class="hero-wrapper__bottom-a">
+              <div class="hero-wrapper__bottom-a--top">Geex World</div>
+              <div class="hero-wrapper__bottom-a--middle">Dive into the new world</div>
+              <div class="hero-wrapper__bottom-a--bottom">Top Line</div>
+            </a>
+          </div>
+          <div class="hero-wrapper__bottom-cont">
+
+            <a href="#" class="hero-wrapper__bottom-a">
+              <div class="hero-wrapper__bottom-a--top">New way</div>
+              <div class="hero-wrapper__bottom-a--middle">See All projects in Geex tv</div>
+              <div class="hero-wrapper__bottom-a--bottom">Look best</div>
+            </a>
+          </div>
+
         </div>
       </div>
     </section>
@@ -94,12 +110,27 @@
         </div>
         <div class="showreel-wrapper__content">
           <div class="showreel-wrapper__content-sr">
-            <div class="showreel-wrapper__content-sr--play">
-              <img src="img/play.png" alt="">
-            </div>
+
             <div class="showreel-wrapper__content-sr--v">
-              <img src="img/sr.png" alt="">
+
+              <div class="showreel-wrapper__content-sr--v_content">
+              </div>
+
+              <div class="showreel-wrapper__content-sr--v_play">
+                <img src="img/play.png" alt="">
+                <div class="showreel-wrapper__content-sr--v_play-txt">
+                  <span>P</span><span>L</span><span>A</span><span>Y</span>
+                </div>
+              </div>
+
+              <video class="showreel-wrapper__content-sr--v_video" loop="true" muted playsinline>
+                <!-- <source src="images/DvizhShowreel.webm" type="video/webm"> -->
+                <source src="img/showreel.mp4" type="video/mp4">
+                Sorry, your browser doesn't support embedded videos.
+              </video>
+
             </div>
+
             <div class="showreel-wrapper__content-sr--star star1">
               <img src="img/star.svg" alt="">
             </div>
@@ -143,7 +174,8 @@
 
     <section class="works">
       <div class="works-wrapper" id="worksSlides">
-        <div class="works-wrapper__slide works-wrapper__slide-1"></div>
+        <div class="works-wrapper__slide works-wrapper__slide-1">
+        </div>
         <div class="works-wrapper__slide works-wrapper__slide-2">
           <img src="img/sec2-bg.jpg" alt="">
         </div>

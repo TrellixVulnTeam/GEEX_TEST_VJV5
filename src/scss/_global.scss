@@ -9,10 +9,6 @@ html {
     box-sizing: inherit;
 }
 body {
-    background-image: url(../img/geex-bg.jpg);
-    background-position: 0 0;
-    background-size: 100% auto;
-    background-repeat: no-repeat;
     width: 100%;
     min-width: 320px;
     overflow-x: hidden;
@@ -54,24 +50,80 @@ p {
     margin: 0;
 }
 
-.star1{
+.star1 {
     top: 0;
     left: 50%;
     transform: translateX(-50%) translateY(-17.36vw);
 }
-.star2{
+.star2 {
     top: 50%;
     right: 0;
     transform: translateX(17.36vw) translateY(-50%);
 }
-.star3{
+.star3 {
     bottom: 0;
     left: 50%;
     transform: translateX(-50%) translateY(17.36vw);
 }
-.star4{
+.star4 {
     top: 50%;
     left: 0;
     transform: translateX(-17.36vw) translateY(-50%);
 }
 
+/* Page Loader */
+.js .loading::before,
+.js .loading::after {
+    content: "";
+    position: fixed;
+    z-index: 1000;
+}
+
+.js .loading::before {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: $main;
+}
+
+.js .loading::after {
+    top: 50%;
+    left: 50%;
+    width: 60px;
+    height: 60px;
+    margin: -30px 0 0 -30px;
+    border-radius: 50%;
+    opacity: 0.4;
+    background: #151515;
+    animation: loaderAnim 0.7s linear infinite alternate forwards;
+}
+.loaded .js-image {
+    opacity: 0;
+}
+
+@keyframes loaderAnim {
+    to {
+        opacity: 1;
+        transform: scale3d(0.5, 0.5, 1);
+    }
+}
+
+.bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-height: 100vh;
+    & img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
+    & canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        pointer-events: none;
+    }
+}
