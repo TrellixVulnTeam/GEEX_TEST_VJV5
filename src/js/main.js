@@ -29,9 +29,6 @@ Promise.all(preloadEverything).then(() => {
     // Remove the loader
     document.body.classList.remove("loading");
     document.body.classList.add("loaded");
-
-    // getTopScroll();
-    // new SmoothScroll();
 });
 
 

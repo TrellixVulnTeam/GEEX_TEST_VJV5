@@ -16,11 +16,9 @@ img.style.opacity = 0;
 
 
 texture = new THREE.TextureLoader().load(img.src);
-console.log(img.src);
 
 init()
 animate();
-
 
 function init() {
 
@@ -40,12 +38,16 @@ function init() {
     */
     scene = new THREE.Scene();
 
+    scene.background = texture;
+
     /*
     ----------------- Renderer -----------------
     */
 
-    var offsetWidth = document.getElementById('here').offsetWidth;
-    var offsetHeight = document.getElementById('here').offsetHeight;
+    let heroBG = document.getElementById('bg')
+
+    let offsetWidth = heroBG.offsetWidth;
+    let offsetHeight = heroBG.offsetHeight;
 
     // Creating renderer
     renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -53,7 +55,7 @@ function init() {
     renderer.setSize(offsetWidth, offsetHeight);
     renderer.outputEncoding = THREE.sRGBEncoding;
     // Adding renderer to DOM
-    document.getElementById('here').appendChild(renderer.domElement);
+    heroBG.appendChild(renderer.domElement);
 
     /*
      ----------------- Geometry -----------------
@@ -70,12 +72,13 @@ function init() {
     // Adding geometry to the scene
     scene.add(mesh);
 
-    // post processing
+    // Post processing
     composer = new EffectComposer(renderer);
     renderPass = new RenderPass(scene, camera);
     composer.addPass(renderPass);
 
-    var myEffect = {
+    // Creating distortion effect and passing it as a new Shader
+    var distortionEffect = {
         uniforms: {
             "tDiffuse": { value: null },
             "resolution": { value: new THREE.Vector2(1, 10 / 5) },
@@ -86,12 +89,13 @@ function init() {
         fragmentShader: glfragment
     }
 
-    customPass = new ShaderPass(myEffect);
+    customPass = new ShaderPass(distortionEffect);
     customPass.renderToScreen = true;
     composer.addPass(customPass);
 
 }
 
+// Assigning mouse values and animating
 function animate() {
     customPass.uniforms.uMouse.value = uMouse;
     requestAnimationFrame(animate);
@@ -99,21 +103,19 @@ function animate() {
     composer.render()
 }
 
-
+// Setting mouse values on mousemove
 document.addEventListener('mousemove', (e) => {
-    // mousemove / touchmove
 
-    let bounds = document.getElementById('here').getBoundingClientRect();
+    let heroBG = document.getElementById('bg')
+
+    let bounds = heroBG.getBoundingClientRect();
     let x = e.clientX - bounds.left;
     let y = e.clientY - bounds.top;
 
-    // console.log(x, y);
-
-    var offsetWidth = document.getElementById('here').offsetWidth;
-    var offsetHeight = document.getElementById('here').offsetHeight;
+    var offsetWidth = heroBG.offsetWidth;
+    var offsetHeight = heroBG.offsetHeight;
 
     uMouse.x = (x / offsetWidth);
     uMouse.y = 1 - (y / offsetHeight);
 
-    // console.log(uMouse.x, uMouse.y);
 });

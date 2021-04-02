@@ -8,6 +8,11 @@ gsap.registerPlugin(ScrollToPlugin);
 
 $('document').ready(function () {
 
+
+    /*------------------------------------------------------------------------------------------------------------------*/
+    /*	Works Horizontal Scroll
+    --------------------------------------------------------------------------------------------------------------------*/
+
     let worksSlides = document.getElementById('worksSlides')
 
     gsap.to(worksSlides, 1, {
@@ -23,46 +28,9 @@ $('document').ready(function () {
         }
     })
 
-    const charming = require('charming')
-
-    let menuItems = document.querySelectorAll(".header-wrapper__menu-el a")
-
-
-    menuItems.forEach(item => {
-        charming(item);
-
-        const letters = [...item.querySelectorAll('span')];
-
-        let lettersAnim = gsap.timeline({paused: true})
-        lettersAnim.to(letters, 0.2, {
-            ease: "Sine.easeInOut",
-            startAt: { opacity: 1, transform: "translateY(0px)" },
-            opacity: 0,
-            transform: "translateY(15px)",
-            yoyo: true,
-            yoyoEase: "Back.easeOut",
-            // repeat: 1,
-            stagger: {
-                grid: [1, letters.length - 1],
-                from: 'center',
-                amount: 0.12
-            }
-        });
-        $(item).on('mouseenter', function () {
-            // Letters effect
-            lettersAnim.play() 
-
-            lettersAnim.eventCallback("onComplete", function () {
-                lettersAnim.add(lettersAnim.reverse(), "+=1")
-            })
-        });
-        // $(item).on('mouseleave', function () {
-        //     // Letters effect
-        //     lettersAnim.reverse()
-        // });
-
-    })
-
+    /*------------------------------------------------------------------------------------------------------------------*/
+    /*	Tilt effect on Works Horizontal Scroll
+    --------------------------------------------------------------------------------------------------------------------*/
 
     let proxy = { skew: 0 },
         skewSetter = gsap.quickSetter(".works-wrapper__slide-1 img", "skewY", "deg"), // fast
@@ -83,20 +51,45 @@ $('document').ready(function () {
     gsap.set(".works-wrapper__slide-1 img", { transformOrigin: "right center", force3D: true });
 
 
-    // let createDigital = gsap.timeline({
-    //     scrollTrigger: {
-    //         trigger: ".hero-wrapper",
-    //         start: "top-=80 top",
-    //         scrub: true,
-    //         // pin: true,
-    //         // markers: true
-    //     }
-    // })
 
-    // createDigital.to(".hero-wrapper", {
-    //     y: "10vw",
-    //     // ease: "power1.inOut"
-    // })
+    /*------------------------------------------------------------------------------------------------------------------*/
+    /*	Menu items on hover
+    --------------------------------------------------------------------------------------------------------------------*/
+
+    // Package that trims string into <span> letters
+    const charming = require('charming')
+
+    let menuItems = document.querySelectorAll(".header-wrapper__menu-el a")
+
+    menuItems.forEach(item => {
+        charming(item);
+
+        const letters = [...item.querySelectorAll('span')];
+
+        let lettersAnim = gsap.timeline({paused: true})
+        lettersAnim.to(letters, 0.2, {
+            ease: "Sine.easeInOut",
+            startAt: { opacity: 1, transform: "translateY(0px)" },
+            opacity: 0,
+            transform: "translateY(15px)",
+            yoyo: true,
+            yoyoEase: "Back.easeOut",
+            stagger: {
+                grid: [1, letters.length - 1],
+                from: 'center',
+                amount: 0.12
+            }
+        });
+        $(item).on('mouseenter', function () {
+            // Letters effect
+            lettersAnim.play() 
+
+            // Reverse animation after play
+            lettersAnim.eventCallback("onComplete", function () {
+                lettersAnim.add(lettersAnim.reverse(), "+=1")
+            })
+        });
+    })
 
 
     /*------------------------------------------------------------------------------------------------------------------*/
@@ -106,11 +99,8 @@ $('document').ready(function () {
     var rotate = gsap.timeline({
         scrollTrigger: {
             trigger: ".showreel-wrapper__title",
-            // scroller: ".scroller",
-            // pin: true,
-            start: 'top center',
+            start: 'top bottom',
             scrub: true,
-            // markers: true,
             end: "bottom bottom"
         }
     })
@@ -121,32 +111,8 @@ $('document').ready(function () {
 
 
     /*------------------------------------------------------------------------------------------------------------------*/
-    /*	Scroll to Showreel 
+    /*	PLAY button cursor and Showreel background animation
     --------------------------------------------------------------------------------------------------------------------*/
-
-    // function srSec() {
-    //     // console.log('yeees');
-    //     gsap.set("body", { overflowX: "hidden", overflowY: "hidden" });
-    //     gsap.to(window, {
-    //         duration: 1,
-    //         scrollTo: { y: ".showreel-wrapper__content-sr", autoKill: false },
-    //         overwrite: true,
-    //         onComplete: () => gsap.set("body", { overflowX: "hidden", overflowY: "auto" })
-    //     });
-    // }
-    // // function heroSec() {
-    // //     gsap.to(window, { duration: 1, scrollTo: { y: ".header", offsetY: 0 } });
-    // // }
-
-    // ScrollTrigger.create({
-    //     trigger: ".showreel-wrapper__content-sr",
-    //     start: 'top bottom-=100',
-    //     onEnter: () => srSec(),
-    // })
-
-
-
-
 
     // let playLetters = gsap.timeline()
 
@@ -199,6 +165,10 @@ $('document').ready(function () {
     })
 
 
+    /*------------------------------------------------------------------------------------------------------------------*/
+    /*	Hide Showreel background and play video on click
+    --------------------------------------------------------------------------------------------------------------------*/
+
     let onPlayClick = gsap.timeline({ paused: true })
 
     onPlayClick.to('.showreel-wrapper__content-sr--v_play', {
@@ -224,7 +194,9 @@ $('document').ready(function () {
     });
 
 
-
+    /*------------------------------------------------------------------------------------------------------------------*/
+    /*	Sticky effect on hero buttons
+    --------------------------------------------------------------------------------------------------------------------*/
 
     let heroBtns = document.querySelectorAll('.hero-wrapper__bottom-cont')
 
@@ -265,64 +237,19 @@ $('document').ready(function () {
 
     })
 
-
-
-    /*------------------------------------------------------------------------------------------------------------------*/
-    /*	Blotter text animation
-    --------------------------------------------------------------------------------------------------------------------*/
-
-    // let fontSize = $(window).width() * 0.2
-
-    // // $(window).on('resize', function () {
-    // //     let fontSize = $(window).width() * 0.2
-    // //     console.log(fontSize);
-
-    // //     return fontSize
-    // // })
-
-    // var text1 = new Blotter.Text("CREATE", {
-    //     family: 'Lucifer Sans SemiExp Light',
-    //     size: fontSize,
-    //     leading: 1.3,
-    //     weight: 300,
-    //     fill: "#FFDA13"
-    // })
-    // var text2 = new Blotter.Text("DIGITAL", {
-    //     family: 'Lucifer Sans SemiExp Light',
-    //     size: fontSize,
-    //     leading: 1.3,
-    //     weight: 300,
-    //     fill: "#FFDA13"
-    // })
-
-    // var material = new Blotter.LiquidDistortMaterial();
-    // material.uniforms.uVolatility.value = 0.03;
-    // material.uniforms.uSeed.value = 0.1;
-    // material.uniforms.uSpeed.value = 0.3;
-
-
-    // var blotter = new Blotter(material, {
-    //     texts: [text1, text2]
-    // })
-
-    // let heroTxt1 = document.getElementById('heroTxt1')
-    // let heroTxt2 = document.getElementById('heroTxt2')
-
-    // var scope = blotter.forText(text1);
-    // var scope2 = blotter.forText(text2);
-
-    // scope.appendTo(heroTxt1);
-    // scope2.appendTo(heroTxt2);
-
-    // document.onmousemove = moveIt;
-    // function moveIt(event) {
-
-    //     material.uniforms.uRotation.value = (event.clientX * .1);
-    //     material.uniforms.uOffset.value = (event.clientX * .0001);
-
-    // }
-
-
+    var rotateStar = gsap.timeline({
+        scrollTrigger: {
+            trigger: ".works",
+            scrub: 0.2,
+            start: 'top bottom',
+            end: '+=10000',
+        }
+    })
+        .to(".works-sphere img", {
+            rotation: 360 * 5,
+            duration: 1,
+            ease: 'none'
+        })
 
 });
 
