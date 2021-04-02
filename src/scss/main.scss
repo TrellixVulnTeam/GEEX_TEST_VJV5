@@ -45,7 +45,7 @@
 }
 
 .hero {
-	padding-bottom: 60vw;
+	padding-bottom: 40vw;
 	&-wrapper {
 		color: $main;
 		&__top {
@@ -75,7 +75,7 @@
 			font-family: "LuciferSansRegular", Fallback, sans-serif;
 			text-transform: uppercase;
 			position: relative;
-			&-cont{
+			&-cont {
 				// position: relative;
 				// @include dkwidth(500vw);
 				position: relative;
@@ -119,6 +119,8 @@
 
 .showreel {
 	// height: 500vw;
+	// background-color: $secColor1;
+	// overflow: hidden;
 	&-wrapper {
 		position: relative;
 		&__circleT {
@@ -132,17 +134,7 @@
 			background-color: $black;
 			border-radius: 50%;
 		}
-		&__circleB {
-			position: absolute;
-			z-index: -1;
-			bottom: 0;
-			left: 50%;
-			transform: translateX(-50%) translateY(50vw);
-			width: 100vw;
-			height: 100vw;
-			background-color: $black;
-			border-radius: 50%;
-		}
+
 		&__title {
 			position: absolute;
 			top: -20vw;
@@ -165,7 +157,7 @@
 		}
 		&__content {
 			position: relative;
-			z-index: 1;
+			z-index: 2;
 			padding-top: 17.5vw;
 			&-sr {
 				position: relative;
@@ -265,7 +257,23 @@
 	}
 }
 .works {
+	position: relative;
+	background-color: $secColor1;
+
+	&-circleB {
+		position: absolute;
+		z-index: 0;
+		top: 0;
+		left: 50%;
+		transform: translateX(-50%) translateY(-50vw);
+		width: 100vw;
+		height: 100vw;
+		background-color: $black;
+		border-radius: 50%;
+	}
 	&-wrapper {
+		position: relative;
+		z-index: 1;
 		display: flex;
 		flex-wrap: wrap;
 		flex-direction: column;
@@ -275,7 +283,31 @@
 			display: flex;
 			&-1 {
 				@include dkwidth(2222vw);
-				background-color: $secColor1;
+				// background-color: $secColor1;
+				display: flex;
+				& img:nth-child(1) {
+					@include dkwidth(736vw);
+					@include dkheight(552vw);
+				}
+				& img:nth-child(2) {
+					@include dkwidth(453vw);
+					@include dkheight(341vw);
+					margin-top: auto;
+				}
+				& img:nth-child(3) {
+					@include dkwidth(450vw);
+					@include dkheight(337vw);
+					margin-top: 14.93vw;
+				}
+				& img:nth-child(4) {
+					@include dkwidth(287vw);
+					@include dkheight(215vw);
+				}
+				& img:nth-child(5) {
+					@include dkwidth(287vw);
+					@include dkheight(215vw);
+					margin-top: 14.93vw;
+				}
 			}
 			&-2 {
 				@include dkwidth(1200vw);
@@ -299,10 +331,6 @@
 			}
 		}
 	}
-}
-.test {
-	height: 100vh;
-	background-color: #fff;
 }
 
 @import "media";

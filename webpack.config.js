@@ -37,7 +37,8 @@ module.exports = {
   mode: 'development',
   entry: {
     main:'./js/main.js',
-    three: './js/threeAnim.js'
+    three: './js/threeAnim.js',
+    gsap: './js/gsapAnim.js'
   },
   output: {
     filename: `./js/${filename('js')}`,

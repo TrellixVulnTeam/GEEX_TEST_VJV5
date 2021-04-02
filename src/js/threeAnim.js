@@ -18,40 +18,11 @@ img.style.opacity = 0;
 texture = new THREE.TextureLoader().load(img.src);
 console.log(img.src);
 
-
-// Creating dummy element
-// let dummyimg = document.getElementById("dummyimg");
-// let dummyimg = document.createElement("img");
-// After dummy element is loaded
-
 init()
 animate();
 
 
-// dummyimg.onload = function () {
-
-//     img.style.opacity = 0;
-
-//     // Setting a texture
-//     texture = new THREE.Texture(this);
-
-//     console.log(this, img);
-//     texture.needsUpdate = true;
-
-//     init()
-//     animate();
-// }
-// Source of a dummy image is now same as html image
-// dummyimg.src = img.src;
-// dummyimg.src = './img/geex-bg.jpg'
-// console.log(dummyimg, img);
-
-
 function init() {
-
-    // To actually be able to display anything with three.js, we need three things: scene, camera and renderer
-
-    console.log(texture);
 
     /*
     ----------------- Camera -----------------
@@ -72,7 +43,6 @@ function init() {
     /*
     ----------------- Renderer -----------------
     */
-
 
     var offsetWidth = document.getElementById('here').offsetWidth;
     var offsetHeight = document.getElementById('here').offsetHeight;
@@ -100,8 +70,6 @@ function init() {
     // Adding geometry to the scene
     scene.add(mesh);
 
-
-
     // post processing
     composer = new EffectComposer(renderer);
     renderPass = new RenderPass(scene, camera);
@@ -128,7 +96,6 @@ function animate() {
     customPass.uniforms.uMouse.value = uMouse;
     requestAnimationFrame(animate);
 
-    // renderer.render( scene, camera );
     composer.render()
 }
 
