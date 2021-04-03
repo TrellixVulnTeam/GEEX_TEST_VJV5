@@ -1,7 +1,10 @@
 @media (max-width: 1280px) {
-    .header-wrapper {
+    .header {
         position: fixed;
         z-index: 1001;
+    }
+    .header-wrapper {
+        width: 100%;
         padding: 2vw;
         padding-top: 2vw;
     }
