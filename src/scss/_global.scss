@@ -13,11 +13,13 @@ body {
     min-width: 320px;
     overflow-x: hidden;
     position: relative;
+    cursor: none;
 }
 
 a {
     text-decoration: none;
     color: inherit;
+    cursor: none;
 }
 h1,
 h2,
@@ -74,9 +76,9 @@ p {
 /* Page Loader */
 .js .loading::before,
 .js .loading::after {
-    content: "";
+    content: '';
     position: fixed;
-    z-index: 1000;
+    z-index: 2000;
 }
 
 .js .loading::before {
@@ -84,19 +86,19 @@ p {
     left: 0;
     width: 100%;
     height: 100%;
-    background: $main;
+    background-color: $main;
 }
 
 .js .loading::after {
     top: 50%;
     left: 50%;
-    width: 60px;
-    height: 60px;
-    margin: -30px 0 0 -30px;
+    width: 80px;
+    height: 80px;
+    margin: -40px 0 0 -40px;
     border-radius: 50%;
-    opacity: 0.4;
+    opacity: 0.5;
     background: #151515;
-    animation: loaderAnim 0.7s linear infinite alternate forwards;
+    animation: loaderAnim 0.8s linear infinite alternate forwards;
 }
 .loaded .js-image {
     opacity: 0;
@@ -105,8 +107,98 @@ p {
 @keyframes loaderAnim {
     to {
         opacity: 1;
-        transform: scale3d(0.5, 0.5, 1);
+        transform: scale3d(0.6, 0.6, 1);
     }
+}
+
+.cursor {
+    width: 14px;
+    height: 14px;
+    position: fixed;
+    top: -7px;
+    left: -7px;
+    z-index: 1000;
+    background-color: transparent;
+    border-radius: 50%;
+    pointer-events: none;
+    background-color: rgba($main, 0.8);
+}
+
+#nav-icon {
+    position: relative;
+    width: 3vw;
+    height: 2vw;
+    transform: rotate(0deg);
+    transition: 0.5s ease-in-out;
+    cursor: pointer;
+}
+
+#nav-icon span {
+    display: block;
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    background-color: $main;
+    opacity: 1;
+    left: 0;
+    transform: rotate(0deg);
+    transition: 0.25s ease-in-out;
+}
+
+#nav-icon span:nth-child(1) {
+    top: 0%;
+}
+
+#nav-icon span:nth-child(2),
+#nav-icon span:nth-child(3) {
+    // top: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#nav-icon span:nth-child(4) {
+    top: 100%;
+    transform: translateY(-100%);
+}
+
+#nav-icon.open span:nth-child(1) {
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0%;
+    left: 50%;
+}
+
+#nav-icon.open span:nth-child(2) {
+    transform: rotate(45deg);
+}
+
+#nav-icon.open span:nth-child(3) {
+    transform: rotate(-45deg);
+}
+
+#nav-icon.open span:nth-child(4) {
+    top: 100%;
+    transform: translateY(-100%);
+    width: 0%;
+    left: 50%;
+}
+
+.emoji-cont {
+    position: relative;
+}
+
+.emoji {
+    position: absolute;
+    font-size: 40px;
+    line-height: 40px;
+    // top: -20px;
+    // left: -20px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100000;
+    opacity: 0;
+    pointer-events: none;
 }
 
 .bg {

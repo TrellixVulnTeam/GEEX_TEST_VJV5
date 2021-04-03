@@ -5,19 +5,28 @@
 @import "global";
 
 .header {
-	position: relative;
-	z-index: 10;
-	padding: 0 1.4vw;
-	padding-top: 0.7vw;
+	width: 100%;
 	&-wrapper {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		padding: 0 1.4vw;
+		padding-top: 0.7vw;
 		font-family: "LuciferSansRegular", Fallback, sans-serif;
 		color: $main;
 		text-transform: uppercase;
 		&__logo {
+			position: relative;
+			z-index: 1001;
 			@include dkwidth(118vw);
+			display: flex;
+			justify-content: flex-start;
+			align-items: center;
+			& img{
+				width: 100%;
+				height: auto;
+				object-fit: contain;
+			}
 		}
 		&__menu {
 			display: flex;
@@ -48,6 +57,7 @@
 					transform: translateX(-1vw) translateY(-50%);
 					width: 0.2vw;
 					height: 0.2vw;
+					border-radius: 50%;
 					background-color: $main;
 				}
 				&::after {
@@ -58,9 +68,13 @@
 					transform: translateX(1vw) translateY(-50%);
 					width: 0.2vw;
 					height: 0.2vw;
+					border-radius: 50%;
 					background-color: $main;
 				}
 			}
+		}
+		&__burger {
+			display: none;
 		}
 	}
 }
@@ -74,8 +88,10 @@
 			@include dklh(260vw);
 			font-family: "LuciferSansSemiExpLight", Fallback, sans-serif;
 			text-transform: uppercase;
-			// height: 53vw;
 			margin-bottom: 10vw;
+			position: relative;
+			// cursor: none;
+			@include transition;
 			&-txt1 {
 				transform: rotate(-6deg);
 				// margin-left: 2vw;
@@ -113,8 +129,8 @@
 				justify-content: center;
 				align-items: center;
 				flex-direction: column;
-				&::before{
-					content: '';
+				&::before {
+					content: "";
 					position: absolute;
 					top: 50%;
 					left: 0;
@@ -126,8 +142,8 @@
 					width: 0.5vw;
 					height: 3.5vw;
 				}
-					&::after{
-					content: '';
+				&::after {
+					content: "";
 					position: absolute;
 					top: 50%;
 					right: 0;

@@ -31,6 +31,11 @@
 
   <main>
 
+    <div class="cursor" id="cursor">
+      <div class="cursor-border"></div>
+      <div class="cursor-point"></div>
+    </div>
+
     <!-- Hero background START -->
     <div class="bg" id="bg">
       <img src="img/geex-bg.jpg" alt="Geex Arts" id="texture">
@@ -40,26 +45,42 @@
     <!-- Header START -->
     <header class="header">
       <div class="header-wrapper">
-        <a href="/" class="header-wrapper__logo">
-          <img src="./img/geex-arts-logo.svg" alt="">
+
+        <a href="/" class="header-wrapper__logo link">
+          <img src="./img/geex-arts-logo.svg" alt="Geex Arts">
         </a>
+
         <ul class="header-wrapper__menu">
           <li class="header-wrapper__menu-el">
-            <a href="#">Work</a>
+            <a class="link" href="#">Work</a>
           </li>
           <li class="header-wrapper__menu-el">
-            <a href="#">Services</a>
+            <a class="link" href="#">Services</a>
           </li>
           <li class="header-wrapper__menu-el">
-            <a href="#">About</a>
+            <a class="link" href="#">About</a>
           </li>
           <li class="header-wrapper__menu-el">
-            <a href="#">News</a>
+            <a class="link" href="#">News</a>
           </li>
         </ul>
-        <div class="header-wrapper__order">
-          <a href="#">Make order</a>
+
+        <div class="header-wrapper__tog">
+          <div class="header-wrapper__order">
+            <a class="link" href="#">Make order</a>
+          </div>
+
+          <div class="header-wrapper__burger">
+            <div id="nav-icon">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
         </div>
+
+
       </div>
     </header>
     <!-- Header END -->
@@ -67,21 +88,29 @@
     <!-- Hero section START -->
     <section class="hero">
       <div class="hero-wrapper">
-        <div id="test" class="hero-wrapper__top">
-          <div id="heroTxt1" class="hero-wrapper__top-txt1">Create</div>
-          <div id="heroTxt2" class="hero-wrapper__top-txt2">Digital</div>
+
+        <div class="hero-wrapper__top emoji-cont">
+          <div class="emoji">🎨</div>
+          <div id="heroTxt1" class="hero-wrapper__top-txt1">
+            <h2>Create</h2>
+          </div>
+          <div id="heroTxt2" class="hero-wrapper__top-txt2">
+            <h2>Digital</h2>
+          </div>
         </div>
+
         <div class="hero-wrapper__bottom">
+
           <div class="hero-wrapper__bottom-cont">
-            <a href="#" class="hero-wrapper__bottom-a">
+            <a href="#" class="hero-wrapper__bottom-a link">
               <div class="hero-wrapper__bottom-a--top">Geex World</div>
               <div class="hero-wrapper__bottom-a--middle">Dive into the new world</div>
               <div class="hero-wrapper__bottom-a--bottom">Top Line</div>
             </a>
           </div>
-          <div class="hero-wrapper__bottom-cont">
 
-            <a href="#" class="hero-wrapper__bottom-a">
+          <div class="hero-wrapper__bottom-cont">
+            <a href="#" class="hero-wrapper__bottom-a link">
               <div class="hero-wrapper__bottom-a--top">New way</div>
               <div class="hero-wrapper__bottom-a--middle">See All projects in Geex tv</div>
               <div class="hero-wrapper__bottom-a--bottom">Look best</div>
@@ -99,6 +128,7 @@
 
         <div class="showreel-wrapper__sphere"></div>
 
+        <!-- Madness START -->
         <div class="showreel-wrapper__title">
           <div class="showreel-wrapper__title-container">
             <svg width="170vw" height="170vw" preserveAspectRatio="xMinYMin meet"
@@ -117,7 +147,11 @@
             </svg>
           </div>
         </div>
+        <!-- Madness END -->
+
         <div class="showreel-wrapper__content">
+
+          <!-- Showreel START -->
           <div class="showreel-wrapper__content-sr">
 
             <div class="showreel-wrapper__content-sr--v">
@@ -153,53 +187,59 @@
               <img src="img/star.svg" alt="">
             </div>
           </div>
+          <!-- Showreel END -->
+
+          <!-- Products START -->
           <div class="showreel-wrapper__content-products">
-            <div class="showreel-wrapper__content-products--title">
+            <div class="showreel-wrapper__content-products--title emoji-cont">
+              <div class="emoji">🚀</div>
               <div class="showreel-wrapper__content-products--title_txt1">Best</div>
               <div class="showreel-wrapper__content-products--title_txt2">Products</div>
             </div>
             <div class="showreel-wrapper__content-products--list">
               <div class="showreel-wrapper__content-products--list_row showreel-wrapper__content-products--list_row-1">
-                <a href="#">
+                <a href="#" class="link">
                   <span>All Works</span>
                   <span class="showreel-wrapper__content-products--list_row-num">23</span>
                 </a>
-                <a href="#">
+                <a href="#" class="link">
                   <span>E-Commerce</span>
                   <span class="showreel-wrapper__content-products--list_row-num">45</span>
                 </a>
-                <a href="#">
+                <a href="#" class="link">
                   <span>Media</span>
                   <span class="showreel-wrapper__content-products--list_row-num">45</span>
                 </a>
               </div>
               <div class="showreel-wrapper__content-products--list_row showreel-wrapper__content-products--list_row-2">
-                <a href="#">
+                <a href="#" class="link">
                   <span>Sport</span>
                   <span class="showreel-wrapper__content-products--list_row-num">3</span>
                 </a>
-                <a href="#">
+                <a href="#" class="link">
                   <span>Saas, Back Office</span>
                   <span class="showreel-wrapper__content-products--list_row-num">12</span>
                 </a>
-                <a href="#">
+                <a href="#" class="link">
                   <span>Fashion</span>
                   <span class="showreel-wrapper__content-products--list_row-num">12</span>
                 </a>
               </div>
               <div class="showreel-wrapper__content-products--list_row showreel-wrapper__content-products--list_row-3">
-                <a href="#">
+                <a href="#" class="link">
                   <span>Corporate sites</span>
                   <span class="showreel-wrapper__content-products--list_row-num">11</span>
 
                 </a>
-                <a href="#">
+                <a href="#" class="link">
                   <span>Promo</span>
                   <span class="showreel-wrapper__content-products--list_row-num">9</span>
                 </a>
               </div>
             </div>
           </div>
+          <!-- Products END -->
+
         </div>
       </div>
     </section>
@@ -212,25 +252,26 @@
         <img src="img/star-works.png" alt="">
       </div>
 
+      <!-- Works slides START -->
       <div class="works-wrapper" id="worksSlides">
 
-        <div class="works-wrapper__slide works-wrapper__slide-1">
+        <div class="works-wrapper__slide works-wrapper__slide-1 works-wrapper__slide-tilt">
           <div class="works-wrapper__slide-1--works">
             Works
           </div>
-          <a href="#" class="works-wrapper__slide-1--fashion">
+          <a href="#" class="works-wrapper__slide-1--fashion link">
             <img src="img/fashion.jpg" alt="">
           </a>
-          <a href="#" class="works-wrapper__slide-1--natasha">
+          <a href="#" class="works-wrapper__slide-1--natasha link">
             <img src="img/natasha.jpg" alt="">
           </a>
-          <a href="#" class="works-wrapper__slide-1--exclusive">
+          <a href="#" class="works-wrapper__slide-1--exclusive link">
             <img src="img/exclusive.jpg" alt="">
           </a>
-          <a href="#" class="works-wrapper__slide-1--phone">
+          <a href="#" class="works-wrapper__slide-1--phone link">
             <img src="img/phone.jpg" alt="">
           </a>
-          <a href="#" class="works-wrapper__slide-1--place">
+          <a href="#" class="works-wrapper__slide-1--place link">
             <img src="img/place.jpg" alt="">
           </a>
         </div>
@@ -239,23 +280,23 @@
           <img src="img/sec2-bg.jpg" alt="">
         </div>
 
-        <div class="works-wrapper__slide works-wrapper__slide-3">
+        <div class="works-wrapper__slide works-wrapper__slide-3 works-wrapper__slide-tilt">
           <div class="works-wrapper__slide-3--works">
             Works
           </div>
-          <a href="#" class="works-wrapper__slide-3--shock">
+          <a href="#" class="works-wrapper__slide-3--shock link">
             <img src="img/shock.jpg" alt="">
           </a>
-          <a href="#" class="works-wrapper__slide-3--spiderman">
+          <a href="#" class="works-wrapper__slide-3--spiderman link">
             <img src="img/spiderman.jpg" alt="">
           </a>
-          <a href="#" class="works-wrapper__slide-3--furious">
+          <a href="#" class="works-wrapper__slide-3--furious link">
             <img src="img/furious.jpg" alt="">
           </a>
-          <a href="#" class="works-wrapper__slide-3--98">
+          <a href="#" class="works-wrapper__slide-3--98 link">
             <img src="img/98.jpg" alt="">
           </a>
-          <a href="#" class="works-wrapper__slide-3--prada">
+          <a href="#" class="works-wrapper__slide-3--prada link">
             <img src="img/prada.jpg" alt="">
           </a>
         </div>
@@ -264,6 +305,8 @@
           <img src="img/sec4-bg.jpg" alt="">
         </div>
       </div>
+      <!-- Works slides END -->
+
     </section>
     <!-- Works section END -->
 

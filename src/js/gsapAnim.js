@@ -8,6 +8,94 @@ gsap.registerPlugin(ScrollToPlugin);
 
 $('document').ready(function () {
 
+    /*------------------------------------------------------------------------------------------------------------------*/
+    /*	Cursor
+    --------------------------------------------------------------------------------------------------------------------*/
+    var cursor = document.getElementById("cursor");
+
+    if ($(window).width() > 1199) {
+        // set the starting position of the cursor outside of the screen
+        let clientX = -100;
+        let clientY = -100;
+
+        const initCursor = () => {
+            // add listener to track the current mouse position
+            document.addEventListener("mousemove", e => {
+                clientX = e.clientX;
+                clientY = e.clientY;
+            });
+
+            // transform the innerCursor to the current mouse position
+            // use requestAnimationFrame() for smooth performance
+            const render = () => {
+                gsap.set(cursor, {
+                    x: clientX,
+                    y: clientY
+                });
+                requestAnimationFrame(render);
+            };
+            render();
+        };
+
+        $(".link").on('mouseenter', function (e) {
+            gsap.to(cursor, 0.1, {
+                transform: "scale(1.8)",
+                opacity: 0.6,
+                ease: "Sine.easeInOut"
+            });
+        });
+
+        $(".link").on('mouseleave', function (e) {
+            gsap.to(cursor, 0.1, {
+                transform: "scale(1)",
+                opacity: 0.8,
+                ease: "Sine.easeInOut"
+            });
+        });
+
+        initCursor();
+    }
+
+
+    /*------------------------------------------------------------------------------------------------------------------*/
+    /*	On burger click
+    --------------------------------------------------------------------------------------------------------------------*/
+
+    let openMenu = gsap.timeline({paused: true})
+
+    openMenu.to(".header-wrapper__menu", {
+        transform: "translateX(0)",
+        duration: 0.35,
+        ease: "Sine.easeInOut"
+    })  
+
+    $(".header-wrapper__burger").on('click', function () {
+        // $(".header-mobile").fadeToggle(200);
+        $('#nav-icon').toggleClass('open');
+
+        if ($(".header-wrapper__menu").hasClass("opened")){
+            $(".header-wrapper__menu").removeClass("opened")
+            openMenu.reverse()
+        } else {
+            $(".header-wrapper__menu").addClass("opened")
+            openMenu.play()
+        }
+    })
+
+    $(".header-wrapper__menu").on('click', function () {
+        $(".header-wrapper__menu").removeClass("opened")
+        openMenu.reverse()
+        $('#nav-icon').removeClass('open');
+    })
+
+    $(window).on("scroll", function () {
+        if ($(window).width() < 1280 && window.pageYOffset > 0) {
+            $(".header-wrapper__menu").removeClass("opened")
+            openMenu.reverse()
+            $('#nav-icon').removeClass('open');
+        }
+    })
+
 
     /*------------------------------------------------------------------------------------------------------------------*/
     /*	Works Horizontal Scroll
@@ -20,6 +108,7 @@ $('document').ready(function () {
         ease: "none",
         scrollTrigger: {
             trigger: worksSlides,
+            start: "bottom bottom",
             invalidateOnRefresh: true,
             pin: true,
             scrub: 1,
@@ -32,23 +121,43 @@ $('document').ready(function () {
     /*	Tilt effect on Works Horizontal Scroll
     --------------------------------------------------------------------------------------------------------------------*/
 
-    let proxy = { skew: 0 },
-        skewSetter = gsap.quickSetter(".works-wrapper__slide-1 img", "skewY", "deg"), // fast
-        clamp = gsap.utils.clamp(-20, 20); // don't let the skew go beyond 20 degrees. 
+    let tilt = {
+        value: 0
+    }
+
+    // Could have also used .set()
+    let setTilt = gsap.quickSetter(".works-wrapper__slide-tilt img", "skewY", "deg") // fast
+
+    // GSAP utility method - sets minimum and maximum values (-15 to 15 deg)
+    let clamp = gsap.utils.clamp(-15, 15);
 
     ScrollTrigger.create({
-        onUpdate: (self) => {
-            let skew = clamp(self.getVelocity() / -300);
-            // only do something if the skew is MORE severe. Remember, we're always tweening back to 0, so if the user slows their scrolling quickly, it's more natural to just let the tween handle that smoothly rather than jumping to the smaller skew.
-            if (Math.abs(skew) > Math.abs(proxy.skew)) {
-                proxy.skew = skew;
-                gsap.to(proxy, { skew: 0, duration: 0.8, ease: "power3", overwrite: true, onUpdate: () => skewSetter(proxy.skew) });
+        onUpdate: (thisScroll) => {
+
+            // Setting tilt value
+            let value = clamp(thisScroll.getVelocity() / -300);
+
+            // Back to 0 smooth animation
+            if (Math.abs(value) > Math.abs(tilt.value)) {
+
+                tilt.value = value;
+                gsap.to(tilt, {
+                    value: 0,
+                    duration: 1,
+                    ease: "power2",
+                    overwrite: true,
+                    onUpdate: () => setTilt(tilt.value)
+                });
+
             }
         }
     });
 
-    // make the right edge "stick" to the scroll bar. force3D: true improves performance
-    gsap.set(".works-wrapper__slide-1 img", { transformOrigin: "right center", force3D: true });
+    // Setting transformOrigin and force3D (improves performance)
+    gsap.set(".works-wrapper__slide-tilt img", {
+        transformOrigin: "right center",
+        force3D: true
+    });
 
 
 
@@ -66,7 +175,7 @@ $('document').ready(function () {
 
         const letters = [...item.querySelectorAll('span')];
 
-        let lettersAnim = gsap.timeline({paused: true})
+        let lettersAnim = gsap.timeline({ paused: true })
         lettersAnim.to(letters, 0.2, {
             ease: "Sine.easeInOut",
             startAt: { opacity: 1, transform: "translateY(0px)" },
@@ -82,7 +191,7 @@ $('document').ready(function () {
         });
         $(item).on('mouseenter', function () {
             // Letters effect
-            lettersAnim.play() 
+            lettersAnim.play()
 
             // Reverse animation after play
             lettersAnim.eventCallback("onComplete", function () {
@@ -114,11 +223,6 @@ $('document').ready(function () {
     /*	PLAY button cursor and Showreel background animation
     --------------------------------------------------------------------------------------------------------------------*/
 
-    // let playLetters = gsap.timeline()
-
-    // playLetters.fromTo('.showreel-wrapper__content-sr--v_play-txt span', { transform: "translateY(1vw)" }, { transform: "translateY(0vw)" })
-
-
     const playBtn = document.getElementsByClassName('showreel-wrapper__content-sr--v_play')
     const sr = document.getElementsByClassName('showreel-wrapper__content-sr--v')
     const srContent = document.getElementsByClassName('showreel-wrapper__content-sr--v_content')
@@ -142,7 +246,12 @@ $('document').ready(function () {
 
         setSrPos(clientX, clientY);
 
-        // playLetters.play()
+        gsap.to(cursor, {
+            opacity: 0,
+            duration: 0.1,
+            ease: "Sine.easeInOut"
+        })
+
     })
 
     $(sr).on('mouseleave', function (e) {
@@ -154,6 +263,12 @@ $('document').ready(function () {
         gsap.to(srContent, 0.8, {
             top: 0,
             left: 0
+        })
+
+        gsap.to(cursor, {
+            opacity: 0.8,
+            duration: 0.1,
+            ease: "Sine.easeInOut"
         })
     })
 
@@ -193,6 +308,64 @@ $('document').ready(function () {
         }
     });
 
+    /*------------------------------------------------------------------------------------------------------------------*/
+    /*	Hero emoji on hover
+    --------------------------------------------------------------------------------------------------------------------*/
+
+    const items = document.querySelectorAll('.emoji-cont')
+
+    if ($(window).width() > 1199) {
+        items.forEach((el) => {
+            const image = el.querySelector('.emoji')
+            // const cursor = document.getElementById("cursor");
+
+            $(el).on('mouseenter', function (e) {
+                // gsap.to(cursor, 0.1, { autoAlpha: 0 })
+                gsap.to(image, 0.1, { autoAlpha: 1 })
+
+                // var clientX = e.clientX;
+                // var clientY = e.clientY;
+
+                var clientX = e.pageX - $(this).offset().left;
+                var clientY = e.pageY - $(this).offset().top;
+
+
+                const render = () => {
+                    gsap.set(image, {
+                        left: clientX,
+                        top: clientY
+                    });
+                    // requestAnimationFrame(render);
+                };
+                render();
+            })
+
+            $(el).on('mouseleave', function (e) {
+                // gsap.to(cursor, 0.1, { autoAlpha: 1 })
+                gsap.to(image, 0.1, { autoAlpha: 0 })
+            })
+
+            $(el).on('mousemove', function (e) {
+                // var clientX = e.clientX;
+                // var clientY = e.clientY;
+
+                // var clientX = e.pageX;
+                // var clientY = e.pageY;
+
+                var clientX = e.pageX - $(this).offset().left;
+                var clientY = e.pageY - $(this).offset().top;
+
+                const render = () => {
+                    gsap.set(image, {
+                        left: clientX,
+                        top: clientY
+                    });
+                    // requestAnimationFrame(render);
+                };
+                render();
+            })
+        })
+    }
 
     /*------------------------------------------------------------------------------------------------------------------*/
     /*	Sticky effect on hero buttons
@@ -222,7 +395,6 @@ $('document').ready(function () {
         }
         heroBtn.addEventListener('mousemove', function (e) {
             callParallax(e);
-            console.log('moving');
         });
 
         heroBtn.addEventListener('mouseleave', function (e) {
